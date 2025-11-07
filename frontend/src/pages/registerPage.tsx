@@ -28,13 +28,14 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto", textAlign: "center" }}>
-      <h2>Registro</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div  className="flex items-center justify-center min-h-screen flex-col gap-8">
+      <h2 className="text-3xl animate-pulse">SIGN UP</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex text-center flex-col">
         <div style={{ marginBottom: "15px" }}>
           <label>Nombre:</label>
           <input
             type="text"
+            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
             {...register("name", { required: "El nombre es obligatorio"})}
             style={{ display: "block", width: "100%", marginTop: "5px" }}
           />
@@ -45,6 +46,7 @@ export default function RegisterPage() {
           <label>Email:</label>
           <input
             type="email"
+            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
             {...register("email", { required: "El email es obligatorio" })}
             style={{ display: "block", width: "100%", marginTop: "5px" }}
           />
@@ -55,6 +57,7 @@ export default function RegisterPage() {
           <label>Contraseña:</label>
           <input
             type="password"
+            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
             {...register("password", { required: "La contraseña es obligatoria" })}
             style={{ display: "block", width: "100%", marginTop: "5px" }}
           />
@@ -63,15 +66,15 @@ export default function RegisterPage() {
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <button type="submit" style={{ width: "100%", padding: "10px" }}>
+        <button type="submit" className="bg-blue-400 p-3 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500">
           Registrarse
         </button>
       </form>
 
       <p style={{ marginTop: "15px" }}>
-        ¿Ya tienes una cuenta?{" "}
+        Do you already have an account? {" "}
         <Link to="/login" style={{ color: "blue", textDecoration: "underline" }}>
-          Inicia sesión aquí
+          Log in here
         </Link>
       </p>
     </div>

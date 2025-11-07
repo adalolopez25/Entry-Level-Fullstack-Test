@@ -43,14 +43,16 @@ export default function LoginPage({ setLoggedIn }: Props) {
 
   return (
     <div
-      style={{ maxWidth: "400px", margin: "50px auto", textAlign: "center" }}
+      className="flex items-center justify-center min-h-screen flex-col gap-8"
     >
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-3xl animate-pulse">SIGN IN </h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex text-center flex-col">
         <div style={{ marginBottom: "15px" }}>
           <label>Email:</label>
           <input
             type="email"
+            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
+            placeholder="Email"
             {...register("email", {
               required: "El email es obligatorio",
               minLength: {
@@ -73,6 +75,8 @@ export default function LoginPage({ setLoggedIn }: Props) {
           <label>Contraseña:</label>
           <input
             type="password"
+            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
+            placeholder="Password"
             {...register("password", {
               required: "La contraseña es obligatoria",
             })}
@@ -85,16 +89,16 @@ export default function LoginPage({ setLoggedIn }: Props) {
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <button type="submit" style={{ width: "100%", padding: "10px" }}>
-          Entrar
+        <button type="submit" className="bg-blue-400 p-3 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500">
+          LOG IN
         </button>
       </form>
 
       <p style={{ marginTop: "15px" }}>
-        ¿No tienes una cuenta?{" "}
+        Don't you have an account?{" "}
         <Link
           to="/register"
-          style={{ color: "blue", textDecoration: "underline" }}
+          className="text-blue-600 hover:underline hover:text-blue-400"
         >
           Regístrate aquí
         </Link>
