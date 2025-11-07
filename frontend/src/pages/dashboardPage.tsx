@@ -2,6 +2,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
+
+
 type User = {
   id: number;
   name: string;
@@ -39,7 +42,7 @@ export default function DashboardPage({setLoggedIn} : Props) {
     fetchTasks();
   }, []);
 
-  // 🔹 Usuarios
+  // Usuarios
   const fetchUsers = async () => {
     try {
       const res = await axios.get("http://localhost:3000/api/users", { withCredentials: true });
@@ -74,7 +77,7 @@ export default function DashboardPage({setLoggedIn} : Props) {
     }
   };
 
-  // 🔹 Tasks
+  // Tasks
   const fetchTasks = async () => {
     try {
       const res = await axios.get("http://localhost:3000/api/tasks", { withCredentials: true });
@@ -106,7 +109,11 @@ export default function DashboardPage({setLoggedIn} : Props) {
       console.error("Error deleting task", error);
     }
   };
-
+  
+  const handleLogout = () => {
+    localStorage.removeItem('loggedIn')
+    location.href = '/login'
+  }
   return (
     <div style={{ padding: "20px" }}>
       <h1>Bienvenido Sr. {userName}</h1>
@@ -147,6 +154,7 @@ export default function DashboardPage({setLoggedIn} : Props) {
           ))}
         </ul>
       </section>
+      <button onClick={handleLogout}>Cerrar Sesion</button>
     </div>
   );
 }

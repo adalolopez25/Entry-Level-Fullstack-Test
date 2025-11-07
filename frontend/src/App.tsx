@@ -5,6 +5,7 @@ import RegisterPage from "./pages/registerPage";
 import DashboardPage from "./pages/dashboardPage";
 import ProtectedRoute from "./components/ProtectedRoutes";
 
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -16,7 +17,16 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/login" />} />
-      <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
+      <Route
+          path="/login"
+          element={
+            loggedIn ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <LoginPage setLoggedIn={setLoggedIn} />
+            )
+          }
+        />
       <Route path="/register" element={<RegisterPage />} />
 
       <Route
