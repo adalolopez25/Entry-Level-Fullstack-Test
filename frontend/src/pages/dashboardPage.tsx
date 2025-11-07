@@ -112,8 +112,9 @@ export default function DashboardPage({setLoggedIn} : Props) {
     localStorage.removeItem('loggedIn')
     location.href = '/login'
   }
+
   return (
-    <div className="flex items-center justify-center flex-col h-3xl gap-15">
+    <div className="flex items-center justify-center flex-col grow-1 sm-h-3xl sm:flex sm:flex-col gap-15">
       <h1 className="text-center text-5xl">Bienvenido Sr. {userName}</h1>
 
       {/* Usuarios */}
@@ -142,9 +143,9 @@ export default function DashboardPage({setLoggedIn} : Props) {
       {/* Tasks */}
       <section >
         <h2 className="text-center mb-5 text-2xl">Task</h2>
-        <div className="flex flex-col items-center justify-center gap-5">
-          <input className="p-2 border-1 rounded-lg bg-gray-300 text-black" placeholder="Título" value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} />
-          <input className="p-2 border-1 rounded-lg bg-gray-300 text-black" placeholder="Descripción" value={newTaskDescription} onChange={(e) => setNewTaskDescription(e.target.value)} />
+        <div className="flex flex-col items-center justify-center gap-5 border-1 p-5 h-80 w-xm rounded-lg">
+          <input className="p-5 border-1 rounded-lg bg-gray-300 text-black" placeholder="Título" value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} />
+          <input className="p-5 border-1 rounded-lg bg-gray-300 text-black" placeholder="Descripción" value={newTaskDescription} onChange={(e) => setNewTaskDescription(e.target.value)} />
           <button className="bg-blue-400 p-5 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500" onClick={addTask}>Agregar Tarea</button>
         </div>
         <br /><br />
@@ -159,8 +160,8 @@ export default function DashboardPage({setLoggedIn} : Props) {
           ))}
         </ul>
       </section>
-      <div className="absolute left-0 top-0 p-5">
-      <button className="bg-red-400 hover:bg-red-500 p-3 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500" onClick={handleLogout}>Cerrar Sesion</button>
+      <div className="absolute left-0 top-0 p-5 sm:right-0 sm:top-0">
+      <button className="bg-red-400 hover:bg-red-500 p-3 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500" onClick={handleLogout}>LOG OUT</button>
       </div>
     </div>
   );
