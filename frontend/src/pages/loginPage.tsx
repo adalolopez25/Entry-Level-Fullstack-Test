@@ -51,7 +51,7 @@ export default function LoginPage({ setLoggedIn }: Props) {
           <label>Email:</label>
           <input
             type="email"
-            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
+            className="p-2 border rounded-lg bg-gray-300 text-black"
             placeholder="Email"
             {...register("email", {
               required: "El email es obligatorio",
@@ -75,7 +75,7 @@ export default function LoginPage({ setLoggedIn }: Props) {
           <label>Contraseña:</label>
           <input
             type="password"
-            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
+            className="p-2 border rounded-lg bg-gray-300 text-black"
             placeholder="Password"
             {...register("password", {
               required: "La contraseña es obligatoria",

@@ -35,7 +35,7 @@ export default function RegisterPage() {
           <label>Nombre:</label>
           <input
             type="text"
-            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
+            className="p-2 border rounded-lg bg-gray-300 text-black"
             {...register("name", { required: "El nombre es obligatorio"})}
             style={{ display: "block", width: "100%", marginTop: "5px" }}
           />
@@ -46,7 +46,7 @@ export default function RegisterPage() {
           <label>Email:</label>
           <input
             type="email"
-            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
+            className="p-2 border rounded-lg bg-gray-300 text-black"
             {...register("email", { required: "El email es obligatorio" })}
             style={{ display: "block", width: "100%", marginTop: "5px" }}
           />
@@ -57,7 +57,7 @@ export default function RegisterPage() {
           <label>Contraseña:</label>
           <input
             type="password"
-            className="p-2 border-1 rounded-lg bg-gray-300 text-black"
+            className="p-2 border rounded-lg bg-gray-300 text-black"
             {...register("password", { required: "La contraseña es obligatoria" })}
             style={{ display: "block", width: "100%", marginTop: "5px" }}
           />

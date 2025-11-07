@@ -114,23 +114,23 @@ export default function DashboardPage({setLoggedIn} : Props) {
   }
 
   return (
-    <div className="flex items-center justify-center flex-col grow-1 sm-h-3xl sm:flex sm:flex-col gap-15">
-      <h1 className="text-center text-5xl">Bienvenido Sr. {userName}</h1>
+    <div className="flex items-center justify-center flex-col grow sm-h-3xl sm:flex sm:flex-col gap-15 ">
+      <h1 className="text-center text-5xl ">Bienvenido Sr. {userName}</h1>
 
       {/* Usuarios */}
       <section className="flex flex-col items-center justify-center">
         <h2 className="mb-10 bg-gray-200 p-10 w-2xl text-center text-black text-3xl rounded-lg">Usuarios</h2>
         <div className="flex items-center  justify-center flex-col gap-5">
-          <input  className="p-2 border-1 rounded-lg bg-gray-300 text-black" placeholder="Nombre" value={newUserName} onChange={(e) => setNewUserName(e.target.value)} />
-          <input  className="p-2 border-1 rounded-lg bg-gray-300 text-black" placeholder="Email" value={newUserEmail} onChange={(e) => setNewUserEmail(e.target.value)} />
-          <input  className="p-2 border-1 rounded-lg bg-gray-300 text-black" placeholder="Contraseña" value={newUserPassword} type="password" onChange={(e) => setNewUserPassword(e.target.value)} />
+          <input  className="p-2 border rounded-lg bg-gray-300 text-black" placeholder="Nombre" value={newUserName} onChange={(e) => setNewUserName(e.target.value)} />
+          <input  className="p-2 border rounded-lg bg-gray-300 text-black" placeholder="Email" value={newUserEmail} onChange={(e) => setNewUserEmail(e.target.value)} />
+          <input  className="p-2 border rounded-lg bg-gray-300 text-black" placeholder="Contraseña" value={newUserPassword} type="password" onChange={(e) => setNewUserPassword(e.target.value)} />
           <button className="bg-blue-400 p-5 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500" onClick={addUser}>Agregar Usuario</button>
         </div>
         <br /><br />
           <h2 className="text-center mb-5 text-2xl">User List</h2>
         <ul className="flex gap-5">
           {users.map(user => (
-            <li key={user.id} className="border-1 p-12 rounded-lg bg-gray-200">
+            <li key={user.id} className="border p-12 md:p-8  rounded-lg bg-gray-200">
               {user.name} ({user.email}){" "}
               <div className="flex flex-col mt-5">
               <button className="bg-red-400 hover:bg-red-500 p-3 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500" onClick={() => deleteUser(user.id)}>Eliminar</button>
@@ -141,11 +141,11 @@ export default function DashboardPage({setLoggedIn} : Props) {
       </section>
 
       {/* Tasks */}
-      <section >
+      <section>
         <h2 className="text-center mb-5 text-2xl">Task</h2>
-        <div className="flex flex-col items-center justify-center gap-5 border-1 p-5 h-80 w-xm rounded-lg">
-          <input className="p-5 border-1 rounded-lg bg-gray-300 text-black" placeholder="Título" value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} />
-          <input className="p-5 border-1 rounded-lg bg-gray-300 text-black" placeholder="Descripción" value={newTaskDescription} onChange={(e) => setNewTaskDescription(e.target.value)} />
+        <div className="flex flex-col items-center justify-center gap-5 border p-5 h-80 w-xm rounded-lg">
+          <input className="p-5 border rounded-lg bg-gray-300 text-black" placeholder="Título" value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} />
+          <input className="p-5 border rounded-lg bg-gray-300 text-black" placeholder="Descripción" value={newTaskDescription} onChange={(e) => setNewTaskDescription(e.target.value)} />
           <button className="bg-blue-400 p-5 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500" onClick={addTask}>Agregar Tarea</button>
         </div>
         <br /><br />
@@ -161,7 +161,7 @@ export default function DashboardPage({setLoggedIn} : Props) {
         </ul>
       </section>
       <div className="absolute left-0 top-0 p-5 sm:right-0 sm:top-0">
-      <button className="bg-red-400 hover:bg-red-500 p-3 border-none rounded-lg text-white cursor-pointer hover:bg-blue-500" onClick={handleLogout}>LOG OUT</button>
+      <button className="bg-red-400 hover:bg-red-500 p-3 border rounded-lg text-white cursor-pointer hover:bg-blue-500" onClick={handleLogout}>LOG OUT</button>
       </div>
     </div>
   );
