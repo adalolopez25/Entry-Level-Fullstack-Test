@@ -1,28 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Task } from './Task';
-import { Project } from './project';
-import { Comment } from './comment';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ length: 100 })
   name!: string;
 
   @Column({ unique: true })
   email!: string;
 
-  @Column()
+  @Column({ select: false })
   password!: string;
 
-  @OneToMany(() => Task, task => task.user)
-  tasks!: Task[];
+  @CreateDateColumn()
+  createdAt!: Date;
 
-  @OneToMany(() => Project, project => project.user)
-  projects!: Project[];
-
-  @OneToMany(() => Comment, comment => comment.user)
-  comments!: Comment[];
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }
