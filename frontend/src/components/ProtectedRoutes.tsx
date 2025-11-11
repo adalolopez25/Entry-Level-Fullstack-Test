@@ -1,21 +1,14 @@
-<<<<<<< HEAD
-=======
-import type React from "react";
->>>>>>> c23096c38fde6f2ae5af57717070bfe3ac6570be
+// src/components/ProtectedRoute.tsx
 import { Navigate } from "react-router-dom";
 
-type Props = {
-  loggedIn: boolean;
+interface ProtectedRouteProps {
+  user: any;
   children: React.ReactNode;
-};
+}
 
-export default function ProtectedRoute({ loggedIn, children }: Props) {
-<<<<<<< HEAD
-  return loggedIn ? <>{children}</> : <Navigate to="/login" replace />;
-=======
-  if (!loggedIn) {
-    return <Navigate to="/login" />;
+export default function ProtectedRoute({ user, children }: ProtectedRouteProps) {
+  if (!user) {
+    return <Navigate to="/login" replace />;
   }
-  return children;
->>>>>>> c23096c38fde6f2ae5af57717070bfe3ac6570be
+  return <>{children}</>;
 }
