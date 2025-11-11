@@ -1,496 +1,205 @@
-<<<<<<< HEAD
-# Fullstack User Profile Management App
+# Full-Stack Authentication System – Entry-Level Test
 
-A full-stack web application built for a technical test at **Gases del Caribe**.  
-This project allows users to register, log in, manage their personal profile, and update their data securely.  
-It includes both **frontend (React + TypeScript + TailwindCSS)** and **backend (Node.js + Express + TypeORM + PostgreSQL)** components.
+**Live Demo (Frontend):** `https://your-frontend.vercel.app` *(replace with your Vercel link)*  
+**Backend API:** `https://your-backend.onrender.com/api/users` *(replace with your Render link)*  
+**Repository:** `https://github.com/adalolopez25/Entry-Level-Fullstack-Test/tree/dev`
 
-## 🧰 Tech Stack
+---
 
-### Frontend
-- **React** with **TypeScript**
-- **React Router DOM**
-- **React Hook Form** for form handling
-- **Axios** for HTTP requests
-- **TailwindCSS** for responsive design and styling
+## Overview
 
-### Backend
-- **Node.js** + **Express**
-- **TypeORM** with **PostgreSQL**
-- **express-session** for authentication
-- **bcryptjs** for password encryption
-- **dotenv** for environment variable management
-- **CORS** and **middleware logging**
+A **secure, modern, and responsive** full-stack authentication system built with:
 
-## 📂 Project Structure
+| Layer       | Technology Stack                              |
+|------------|-----------------------------------------------|
+| **Backend** | Node.js, Express, TypeORM, PostgreSQL, bcrypt |
+| **Frontend**| React, TypeScript, Vite, React Router, Tailwind |
+| **Auth**    | Session-based (express-session), Cookie-based |
 
-```
-project-root/
-│
+**Key Features Implemented:**
+- User registration & login
+- Secure profile management (update name, email, password)
+- **Password change requires current password**
+- Session persistence across page reloads
+- Protected routes & automatic redirects
+- Professional UI with elegant greeting: **"Welcome, Mr. Andrés"**
+- Responsive design (mobile-first)
+
+---
+
+## Why TypeORM Instead of Sequelize?
+
+| Feature               | TypeORM (Chosen)                     | Sequelize (Original)                  |
+|-----------------------|--------------------------------------|---------------------------------------|
+| TypeScript Support    | Native decorators, zero boilerplate  | Requires extra typing                 |
+| Active Record Pattern | Yes (`@Entity`, `@Column`)           | No (DataMapper)                       |
+| Development Speed     | Faster with TS                       | More verbose                          |
+| Migration Sync        | `synchronize: true` (dev)            | Manual migrations                     |
+
+> **Production-ready note**: In production, use TypeORM CLI for migrations.
+
+---
+
+## Project Structure
+
+Entry-Level-Fullstack-Test/
 ├── backend/
 │   ├── src/
-│   │   ├── controllers/
-│   │   │   └── userControllers.ts
-│   │   ├── db/
-│   │   │   └── data-source.ts
-│   │   ├── middleware/
-│   │   │   ├── auth.ts
-│   │   │   └── logger.ts
-│   │   ├── models/
-│   │   │   └── User.ts
-│   │   ├── routes/
-│   │   │   └── userRoutes.ts
-│   │   ├── types/
-│   │   │   └── express-session.d.ts
-│   │   └── index.ts
-│   ├── .env
+│   │   ├── controllers/     # Route logic
+│   │   ├── middleware/      # Auth & logging
+│   │   ├── models/          # TypeORM User entity
+│   │   ├── routes/          # API endpoints
+│   │   └── db/              # DataSource config
+│   ├── .env.example
 │   └── package.json
-│
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   │   ├── ProtectedRoute.tsx
-    │   │   └── PublicRoute.tsx
-    │   ├── pages/
-    │   │   ├── LoginPage.tsx
-    │   │   ├── RegisterPage.tsx
-    │   │   └── DashboardPage.tsx
-    │   ├── App.tsx
-    │   ├── main.tsx
-    │   └── index.css
-    ├── tailwind.config.js
-    └── package.json
-```
+├── frontend/
+│   ├── src/
+│   │   ├── pages/           # Login, Register, Dashboard
+│   │   ├── components/      # ProtectedRoute
+│   │   └── App.tsx          # Routing & auth logic
+│   ├── vite.config.ts
+│   └── package.json
+└── README.md
 
-## ⚙️ Installation & Setup
 
-### 1️⃣ Clone the repository
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** ≥ 18
+- **PostgreSQL** (local or cloud)
+- **Git**
+
+---
+
+### 1. Clone & Setup
+
 ```bash
-git clone https://github.com/yourusername/fullstack-profile-app.git
-cd fullstack-profile-app
-```
+git clone https://github.com/adalolopez25/Entry-Level-Fullstack-Test.git
+cd Entry-Level-Fullstack-Test
+git checkout dev
 
-### 2️⃣ Backend Setup
-```bash
+2. Backend Setup
+
 cd backend
-npm install
-```
+cp .env.example .env
 
-Create a `.env` file in the `backend/` directory:
-```env
+Edit .env (use your DB credentials):
+
 DB_HOST=localhost
 DB_PORT=5432
-DB_USER=your_postgres_user
-DB_PASS=your_postgres_password
-DB_NAME=your_database_name
+DB_USER=your_db_user
+DB_PASS=your_db_password
+DB_NAME=entry_test_db
 PORT=3000
-```
+SESSION_SECRET=your-super-secret-key-12345
 
-Run the backend server:
-```bash
-npm run dev
-```
+Install & Run
 
-### 3️⃣ Frontend Setup
-```bash
-cd frontend
 npm install
 npm run dev
-```
-
-Access frontend at `http://localhost:5173`  
-Backend runs at `http://localhost:3000`
-
-## 🧩 Core Functionalities
-
-- User registration and login
-- Session-based authentication
-- Profile view and update
-- Secure password change (requires current password)
-- Logout and session destruction
-- Protected and public routes
-
-## 🧠 Backend Endpoints
-
-| Method | Endpoint | Description | Auth |
-|:------:|:----------|:-------------|:-----:|
-| POST | `/api/users/register` | Register a new user | ❌ |
-| POST | `/api/users/login` | Authenticate user and create session | ❌ |
-| POST | `/api/users/logout` | Destroy session | ✅ |
-| GET | `/api/users/profile` | Get logged-in user profile | ✅ |
-| PUT | `/api/users/profile` | Update logged-in user profile | ✅ |
-
-## 🎨 Design & UI
-
-- Fully responsive with **TailwindCSS**
-- Clean and modern interface
-- Smooth hover and focus animations
-- Works on **mobile, tablet, and desktop**
-
-## 🧾 Example Usage
-
-1. Register a new account at `/register`
-2. Log in at `/login`
-3. Manage your profile at `/dashboard`
-4. Update your data or change password
-5. Logout to end the session
-
-## 👨‍💻 Author
-
-**Andrés Armenta**  
-Fullstack Developer | React, Node.js & PostgreSQL  
-📧 your.email@example.com
-
-## 📝 License
-
-This project is distributed for educational and evaluation purposes.
-=======
-# Entry-Level-Fullstack-Test
-
-A simple fullstack application with Node.js/Express backend and React frontend.
 
-## Project Structure
-
-```
-├── backend/                # Node.js + Express backend
-│   ├── config/             # Database configuration
-│   │   └── config.js       # Sequelize database config
-│   ├── controllers/        # Route controllers
-│   │   ├── auth.controller.js   # Authentication endpoints
-│   │   └── users.controller.js  # User endpoints
-│   ├── models/             # TYPEORM Model
-│   │   ├── Task.ts       # Task Model
-│   │   └── User.ts        # User model
-│   │   └── project.ts        # Project model
-│   │   └── category.ts        # Category model
-│   │   └── comment.ts        # Comment model
-
-│   ├── db           # Database Connection
-│   │   ├── data.source.ts     # Authentication service
-│   ├── routes
-│   │   ├── taskRoutes.ts Router managemente for task
-│   │   ├── userRoutes.ts Router maganement for user
-│   ├── .env        # Environment variables template
-│   ├── index.js            # Main server file
-│   └── package.json        # Backend dependencies
-
+Server runs on: http://localhost:3000
 
-├── frontend/               # React frontend
-│   ├── src/                # React source files
-│   ├── public/             # Public assets
-│   └── package.json        # Frontend dependencies
-│   └── tsconfig.json        # TypeScript setting
-└── README.md               # This file here show all function that I use and this project
-```
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- PostgreSQL database server
-
-### Backend
-
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env` file based on `.env.example`:
-   ```bash
-   cp .env.example .env
-   ```
+3. Frontend Setup
 
-4. Update the `.env` file with your database credentials and JWT secret:
-   ```
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_NAME=mydatabase
-   DB_USER=myuser
-   DB_PASSWORD=mypassword
-   PORT=3000
-   ```
+cd ../frontend
+npm install
+npm run dev
 
+App runs on: http://localhost:5173
 
-The backend server will run on `http://localhost:3000`
+API Endpoints
 
-Available endpoints:
-- `GET /` - Welcome message
-- `GET /api/health` - Health check endpoint
-- `GET /users` - Get all users
-- `POST /auth/login` 
+Method,Endpoint,Description,Auth Required
+POST,/api/users/register,Register new user,No
+POST,/api/users/login,Login → sets session cookie,No
+POST,/api/users/logout,Destroy session,Yes
+GET,/api/users/profile,Get current user,Yes
+PUT,/api/users/profile,Update profile (password needs current),Yes
 
+How to Use (Step-by-Step)
 
-### Frontend
+1 - Openhttp://localhost:5173
+2 - Register a new account
+3 - Login → redirected to /dashboard
+4 - Dashboard shows:Welcome, Mr. Andrés
+ (First name extracted elegantly)
+5 - Update name, email, or password 
+ To change password → must enter current password
 
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
+6 - Logout → back to login
+7 - Reload page → session persists
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm start
-   ```
+Security Features
 
-The React app will run on `http://localhost:3000`
-
-## Technologies Used
-
-### Backend
-- [Node.js](https://nodejs.org/docs/) - JavaScript runtime
-- [Express](https://expressjs.com/) - Web application framework
-- [PostgreSQL](https://www.postgresql.org/docs/) - Relational database (via [pg](https://node-postgres.com/) driver)
-- [dotenv](https://github.com/motdotla/dotenv#readme) - Environment variable management
+Passwords hashed with bcrypt
+Session stored in httpOnly, secure cookie
+CSRF-safe with sameSite: lax
+Input validation (frontend + backend)
+No sensitive data in localStorage
 
-### Backend Development Tools
-- [ESLint](https://eslint.org/docs/latest/) - Linting tool
-- [eslint-config-standard](https://github.com/standard/eslint-config-standard) - Standard JavaScript style guide
+UI/UX Highlights
 
-### Frontend
-- [React](https://react.dev/) - JavaScript library for building user interfaces
-- [React DOM](https://react.dev/reference/react-dom) - React package for working with the DOM
-- [React Scripts](https://create-react-app.dev/docs/getting-started) - Configuration and scripts for Create React App
-- [React Router DOM](https://reactrouter.com/) - Declarative routing for React
-- [React Hook Form](https://react-hook-form.com/) - Performant form validation library
+Elegant gradient background
+Professional greeting
+Clear form labels
+Success/error messages
+Responsive layout (mobile & desktop)
+Smooth hover transitions
 
+Optional Enhancements (Ready to Add)
 
-## Frontend Development Patterns
+Feature,Status
+Email verification,Planned
+Forgot password,Planned
+Role-based access,Planned
+Docker support,Planned
+Unit/E2E tests (Jest),Planned
 
-### Form Handling
-This project uses **React Hook Form** with the `Controller` component pattern for form inputs. This pattern is preferred for better integration with Material-UI components and controlled form state management.
+Deployment (Optional)
+Backend → Render / Railway
 
-Example:
-```tsx
+Connect GitHub repo
+Set environment variables
+Deploy → get API URL
 
-const { useForm} = useForm();
+Frontend → Vercel
+vercel --prod
 
- <input
-            type="email"
-            {...register("email", {
-              required: "El email es obligatorio",
-              minLength: {
-                value: 10,
-                message: "Email must be at least 10 character",
-              },
-              maxLength: {
-                value: 20,
-                message: "Email tiene que tener maximo 20 caracteres",
-              },
-            })}
-```
-
-For more information, visit the [React Hook Form documentation](https://react-hook-form.com/).
+Update frontend/vite.config.ts proxy:
+proxy: { '/api': 'https://your-backend.onrender.com' }
 
-## Rutas Protegidas##
-si el usuario no esta logeado no puede entrar al dashboard
-y si esta logeado si intenta ingresar al "/login" desde la URL lo enviara de nuevo al login hasta que ingrese
+Troubleshooting
 
-### Routing
-Application routes are defined in a centralized `routes.js` file as an enum for consistency and maintainability.
+Issue,Solution
+Session not persisting,Ensure withCredentials: true in Axios
+CORS error,Backend CORS allows http://localhost:5173
+Database not connecting,Check .env DB credentials
+Login redirects to login,Clear browser cookies & retry
 
-## Development
+Author
+Andres David Armenta Lopez
+Full-Stack Developer | TypeScript Enthusiast
+GitHub: @adalolopez25
 
-- Backend runs on port 3001 by default
-- Frontend runs on port 3000 by default
-- Both applications need to be running simultaneously for full functionality
+Ready for production. Built with passion.
 
-## Database Management
 
-### Using TypeORM With Postgresql ##
-
+---
 
-#Entry-Level-Fullstack-Test
+## STEPS TO SAVE IT IN YOUR PROJECT
 
-A simple fullstack application with Node.js/Express backend and React frontend.
+1. **Open Visual Studio Code**
+2. In the **project root**, right-click → **"New File"**
+3. Name it: `README.md`
+4. **Select all the text above** (from `# Full-Stack...` to the end)
+5. **Paste it into the file**
+6. **Save** (`Ctrl + S`)
+7. **Upload to GitHub**:
 
-## Project Structure
-
-```
-├── backend/ # Node.js + Express backend
-│ ├── config/ # Database configuration
-│ │ └── config.js # Sequelize database config
-│ ├── controllers/ # Route controllers
-│ │ ├── auth.controller.js # Authentication endpoints
-│ │ └── users.controller.js # User endpoints
-│ ├── models/ # TYPEORM Model
-│ │ ├── Task.ts # Task Model
-│ │ └── User.ts # User model
-│ │ └── project.ts # Project model
-│ │ └── category.ts # Category model
-│ │ └── comment.ts # Comment model
-
-│ ├── db # Database Connection
-│ │ ├── data.source.ts # Authentication service
-│ ├── routes
-│ │ ├── taskRoutes.ts Router managemente for task
-│ │ ├── userRoutes.ts Router magazine for user
-│ ├── .env # Environment variables template
-│ ├── index.js # Main server file
-│ └── package.json # Backend dependencies
-
-
-├── frontend/ # React frontend
-│ ├── src/ # React source files
-│ ├── public/ # Public assets
-│ └── package.json # Frontend dependencies
-│ └── tsconfig.json # TypeScript setting
-└── README.md # This file here show all function that I use and this project
-```
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- PostgreSQL database server
-
-###Backend
-
-1. Navigate to the backend directory: 
-```bash 
-cd backend 
-```
-
-2. Install dependencies: 
-```bash 
-npm install 
-```
-
-3. Create a `.env` file based on `.env.example`: 
-```bash 
-cp .env.example .env 
-```
-
-4. Update the `.env` file with your database credentials and JWT secret: 
-``` 
-DB_HOST=localhost 
-DB_PORT=5432 
-DB_NAME=mydatabase 
-DB_USER=myuser 
-DB_PASSWORD=mypassword 
-PORT=3000 
-```
-
-
-The backend server will run on `http://localhost:3000`
-
-Available endpoints:
-- `GET /` - Welcome message
-- `GET /api/health` - Health check endpoint
-- `GET /users` - Get all users
-- `POST /auth/login`
-
-
-### Frontend
-
-1. Navigate to the frontend directory: 
-```bash 
-CD frontend 
-```
-
-2. Install dependencies: 
-```bash 
-npm install 
-```
-
-3. Start the development server: 
-```bash 
-npm start 
-```
-
-The React app will run on `http://localhost:3000`
-
-## Technologies Used
-
-###Backend
-- [Node.js](https://nodejs.org/docs/) - JavaScript runtime
-- [Express](https://expressjs.com/) - Web application framework
-- [PostgreSQL](https://www.postgresql.org/docs/) - Relational database (via [pg](https://node-postgres.com/) driver)
-- [dotenv](https://github.com/motdotla/dotenv#readme) - Environment variable management
-
-### Backend Development Tools
-- [ESLint](https://eslint.org/docs/latest/) - Linting tool
-- [eslint-config-standard](https://github.com/standard/eslint-config-standard) - Standard JavaScript style guide
-
-### Frontend
-- [React](https://react.dev/) - JavaScript library for building user interfaces
-- [React DOM](https://react.dev/reference/react-dom) - React package for working with the DOM
-- [React Scripts](https://create-react-app.dev/docs/getting-started) - Configuration and scripts for Create React App
-- [React Router DOM](https://reactrouter.com/) - Declarative routing for React
-- [React Hook Form](https://react-hook-form.com/) - Performant form validation library
-
-
-## Frontend Development Patterns
-
-### Form Handling
-This project uses **React Hook Form** with the `Controller` component pattern for form inputs. This pattern is preferred for better integration with Material-UI components and controlled form state management.
-
-Example:
-```tsx
-
-const { useForm } = useForm(); 
-
-<input 
-type="email" 
-{...register("email", { 
-required: "Email is required", 
-minLength: { 
-value: 10, 
-message: "Email must be at least 10 characters", 
-}, 
-maxLength: { 
-value: 20, 
-message: "Email must have a maximum of 20 characters", 
-}, 
-})}
-```
-
-For more information, visit the [React Hook Form documentation](https://react-hook-form.com/).
-
-## Protected Routes##
-If the user is not logged in, they cannot access the dashboard.
-If they are logged in, attempting to access "/login" from the URL will redirect them back to the login page until they log in.
-
-### Routing
-Application routes are defined in a centralized `routes.js` file as an enum for consistency and maintainability.
-
-## Development
-
-- Backend runs on port 3001 by default
-- Frontend runs on port 3000 by default
-- Both applications need to be running simultaneously for full functionality
-
-## Database Management
-
-### Using TypeORM With PostgreSQL ##
-
-## IMPROVEMENTS ##
-
-Deleting tasks is not currently working; this will be implemented in a future project. Upon accessing the dashboard, it only displays
-
-
-
-## MEJORAS ##
-
-El eliminar de las tareas no funciona actualmente sera implementada en un siguiente proyecto
-al ingresar al dashboard solo muestra Sr Usuario como mensaje posible mejora mostrar el nombre del usuario que ingreso
-
-
-## IMPROVEMENTS ##
-
-Deleting tasks is not currently working; this will be implemented in a future project. Upon logging into the dashboard, only the "Mr. User" message is displayed. A possible improvement would be to show the name of the logged-in user.
-
-Responsive design functionality works on computers and tablets, but it doesn't yet work properly on mobile devices.
->>>>>>> c23096c38fde6f2ae5af57717070bfe3ac6570be
+```git add README.md`
+git commit -m "docs: add full professional English README"`
+git push source developer
