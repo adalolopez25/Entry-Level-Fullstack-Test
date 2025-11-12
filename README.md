@@ -203,3 +203,6 @@ Ready for production. Built with passion.
 ```git add README.md`
 git commit -m "docs: add full professional English README"`
 git push source developer
+
+
+## Se cambio todo el proyecto ahora funciona todas las funcionalidades##

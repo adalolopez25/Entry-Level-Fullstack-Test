@@ -6,8 +6,6 @@ declare module "express-session" {
       id: number;
       name: string;
       email: string;
-      createdAt?: string; // opcional, útil si lo envías al frontend
-      updatedAt?: string;
     };
   }
 }

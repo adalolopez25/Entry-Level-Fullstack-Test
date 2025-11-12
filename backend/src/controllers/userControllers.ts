@@ -6,69 +6,66 @@ import { User } from "../models/User";
 
 const userRepository = AppDataSource.getRepository(User);
 
-// Registro
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Faltan datos" });
+    }
 
     const existing = await userRepository.findOne({ where: { email } });
-    if (existing) return res.status(400).json({ message: "El correo ya está registrado" });
+    if (existing) return res.status(400).json({ message: "Correo ya registrado" });
 
     const hashed = await bcrypt.hash(password, 10);
     const user = userRepository.create({ name, email, password: hashed });
     await userRepository.save(user);
 
-    res.json({ message: "Usuario registrado correctamente" });
+    res.json({ message: "Usuario creado" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error en el registro" });
+    res.status(500).json({ message: "Error en registro" });
   }
 };
 
-// Login
 export const loginUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ message: "Faltan credenciales" });
 
     const user = await userRepository.findOne({
       where: { email },
       select: ['id', 'name', 'email', 'password']
     });
 
-    if (!user) return res.status(400).json({ message: "Usuario no encontrado" });
-
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(400).json({ message: "Contraseña incorrecta" });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(400).json({ message: "Credenciales inválidas" });
+    }
 
     req.session.user = { id: user.id, name: user.name, email: user.email };
 
     res.json({
-      message: "Inicio de sesión exitoso",
+      message: "Login exitoso",
       user: { id: user.id, name: user.name, email: user.email }
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error al iniciar sesión" });
+    res.status(500).json({ message: "Error en login" });
   }
 };
 
-// Logout
 export const logoutUser = (req: Request, res: Response) => {
   req.session.destroy((err) => {
     if (err) return res.status(500).json({ message: "Error al cerrar sesión" });
-    res.json({ message: "Sesión cerrada correctamente" });
+    res.clearCookie('connect.sid');
+    res.json({ message: "Sesión cerrada" });
   });
 };
 
-// Perfil
 export const getProfile = (req: Request, res: Response) => {
-  if (!req.session.user) {
-    return res.status(401).json({ message: "No autorizado" });
-  }
+  if (!req.session.user) return res.status(401).json({ message: "No autorizado" });
   res.json(req.session.user);
 };
 
-// Actualizar perfil
 export const updateProfile = async (req: Request, res: Response) => {
   try {
     if (!req.session.user) return res.status(401).json({ message: "No autorizado" });
@@ -79,26 +76,22 @@ export const updateProfile = async (req: Request, res: Response) => {
     const user = await userRepository.findOne({ where: { id } });
     if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 
-    // Cambiar contraseña
     if (newPassword) {
-      if (!currentPassword) {
-        return res.status(400).json({ message: "Debes ingresar tu contraseña actual" });
-      }
+      if (!currentPassword) return res.status(400).json({ message: "Contraseña actual requerida" });
       const match = await bcrypt.compare(currentPassword, user.password);
       if (!match) return res.status(400).json({ message: "Contraseña actual incorrecta" });
       user.password = await bcrypt.hash(newPassword, 10);
     }
 
-    // Actualizar datos
     user.name = name || user.name;
     user.email = email || user.email;
 
     await userRepository.save(user);
     req.session.user = { id: user.id, name: user.name, email: user.email };
 
-    res.json({ message: "Perfil actualizado correctamente", user: req.session.user });
+    res.json({ message: "Perfil actualizado", user: req.session.user });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error al actualizar perfil" });
+    res.status(500).json({ message: "Error al actualizar" });
   }
 };
