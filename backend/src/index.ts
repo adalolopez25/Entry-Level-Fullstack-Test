@@ -61,6 +61,7 @@ const PORT = process.env.PORT || 3000;
 
 AppDataSource.initialize()
   .then(() => {
+    console.log(process.env.DB_USER)
     console.log('Base de datos conectada');
     app.listen(PORT, () => {
       console.log(`Servidor en http://localhost:${PORT}`);
