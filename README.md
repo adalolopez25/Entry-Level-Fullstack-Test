@@ -44,23 +44,27 @@ A **secure, modern, and responsive** full-stack authentication system built with
 
 Entry-Level-Fullstack-Test/
 ├── backend/
-│   ├── src/
-│   │   ├── controllers/     # Route logic
-│   │   ├── middleware/      # Auth & logging
-│   │   ├── models/          # TypeORM User entity
-│   │   ├── routes/          # API endpoints
-│   │   └── db/              # DataSource config
+│   ├── config/           # Database and JWT config
+│   ├── controllers/      # Auth and task logic
+│   ├── middleware/       # Authentication and validation
+│   ├── models/           # Mongoose schemas (User, Task)
+│   ├── routes/           # API routes
+│   ├── socket/           # Socket.IO event handlers
 │   ├── .env.example
+│   ├── server.js
 │   └── package.json
 ├── frontend/
+│   ├── public/
 │   ├── src/
-│   │   ├── pages/           # Login, Register, Dashboard
-│   │   ├── components/      # ProtectedRoute
-│   │   └── App.tsx          # Routing & auth logic
-│   ├── vite.config.ts
+│   │   ├── components/   # Login, Register, Task components
+│   │   ├── context/      # Auth context
+│   │   ├── services/     # API calls with Axios
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── .env.example
 │   └── package.json
-└── README.md
-
+├── README.md
+├── .gitignore
 
 ---
 
